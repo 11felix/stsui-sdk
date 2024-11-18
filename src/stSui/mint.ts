@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV } from "../common/ids.ts";
+import { conf, CONF_ENV } from "../index.ts";
 
 export async function mint(
   sui_amount: string,

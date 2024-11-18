@@ -18,18 +18,10 @@
 // //const admin_cap="0xb4c01875b7a3cff6a90b07e2fbef28558473b3d91c39a5fbc7086e9a126830df";
 // const admin_cap="0xff5c66aa1a16c75d8bcd8a5143e114593ab4d0d372bf4eae3bc16be6de4bf57a";
 
-
-
 // const sui_for_mint = "0x819a35696cd3ecc143d466ab8e6ba64eb68a48e7b30d207731005a3dced157cd"
-
-
-
-
 
 // let lst_coin="0xbe49ebf42ef8b4618f126c9274f3def6262231c849a15c610619b6a128c7837e"
 
-
-	
 // async function execute(txb: Transaction)
 // {
 // 	const rpcUrl = getFullnodeUrl('testnet');
