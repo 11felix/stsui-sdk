@@ -35,6 +35,7 @@
     "typescript-eslint": "^8.14.0"
   },
   "dependencies": {
-    "@mysten/sui": "^1.14.3"
+    "@mysten/sui": "^1.14.3",
+    "decimal.js": "^10.4.3"
   }
 }
