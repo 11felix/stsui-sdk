@@ -16,6 +16,8 @@ export const conf = {
 
     LST_INFO: "",
 
+    ADMIN_CAP: "",
+
     SUI_SYSTEM_STATE_OBJECT_ID: "0x5",
 
     // Coin Types
