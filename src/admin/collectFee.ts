@@ -12,7 +12,7 @@ export async function collect_fee(options: {
     arguments: [
       txb.object(conf[CONF_ENV].LST_INFO),
       txb.object(conf[CONF_ENV].SUI_SYSTEM_STATE_OBJECT_ID),
-      txb.object(conf[CONF_ENV].ADMIN_CAP),
+      txb.object(conf[CONF_ENV].COLLECTION_FEE_CAP_ID),
     ],
     typeArguments: [conf[CONF_ENV].STSUI_COIN_TYPE],
   });

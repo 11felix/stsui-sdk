@@ -53,6 +53,6 @@ export async function redeem(
     ],
     typeArguments: [conf[CONF_ENV].STSUI_COIN_TYPE],
   });
-  txb.transferObjects([sui], options.address);
+  txb.transferObjects([sui, coin], options.address);
   return txb;
 }

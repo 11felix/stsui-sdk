@@ -3,7 +3,7 @@ import { conf, CONF_ENV } from "../index.ts";
 
 export async function set_validators(
   addresses: string[],
-  weights: [],
+  weights: number[],
 ): Promise<Transaction | undefined> {
   if (addresses.length !== weights.length) {
     throw new Error("different lengths of addresses and weights");
