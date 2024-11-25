@@ -1,2 +1,2 @@
-export * from "./mint.ts";
-export * from "./redeem.ts";
+export * from "./mint.js";
+export * from "./redeem.js";

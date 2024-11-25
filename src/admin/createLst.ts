@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV, createFeeConfig } from "../index.ts";
+import { conf, CONF_ENV, createFeeConfig } from "../index.js";
 
 export async function create_lst(
   treasuryCap: string,

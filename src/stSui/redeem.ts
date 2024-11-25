@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV, getSuiClient } from "../index.ts";
+import { conf, CONF_ENV, getSuiClient } from "../index.js";
 import { CoinStruct } from "@mysten/sui/client";
 
 export async function redeem(

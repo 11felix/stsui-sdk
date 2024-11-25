@@ -1,3 +1,3 @@
-export * from "./fee.ts";
-export * from "./createLst.ts";
-export * from "./setValidators.ts";
+export * from "./fee.js";
+export * from "./createLst.js";
+export * from "./setValidators.js";

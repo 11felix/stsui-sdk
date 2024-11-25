@@ -15,9 +15,8 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
-    "emitDeclarationOnly": false,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    // "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": false,
 
     // linting
     "strict": true,

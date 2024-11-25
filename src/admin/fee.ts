@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV } from "../index.ts";
+import { conf, CONF_ENV } from "../index.js";
 
 export async function collect_fee(options: {
   address: string;

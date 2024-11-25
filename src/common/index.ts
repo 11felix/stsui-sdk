@@ -1,3 +1,3 @@
-export * from "./client.ts";
-export * from "./ids.ts";
-export * from "./types.ts";
+export * from "./client.js";
+export * from "./ids.js";
+export * from "./types.js";

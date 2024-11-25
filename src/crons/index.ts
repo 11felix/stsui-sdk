@@ -1,1 +1,1 @@
-export * from "./refresh.ts";
+export * from "./refresh.js";
