@@ -8,6 +8,7 @@ import {
   redeem,
   collect_fee,
   refresh,
+  updateFees,
 } from "../src/index.ts";
 import {
   dryRunTransactionBlock,
@@ -18,11 +19,12 @@ import {
 async function createLst() {
   const { address } = getExecStuff();
   const txb = await create_lst(
-    "0xf1d157309bf608a8b3f60dafb4ba98ea4707d683bdb156ad79246f37ca12861c",
+    "0x31c042dcc980819ce57a81f73e9f1bcf462c17a94d24a7aee50954f56fbd0ddc",
     conf[CONF_ENV].STSUI_COIN_TYPE,
     10,
     10,
     1000,
+    10000,
     { address },
   );
   //   dryRunTransactionBlock(txb);
@@ -62,7 +64,7 @@ async function redeemstsui() {
     executeTransactionBlock(txb);
   }
 }
-redeemstsui()
+// redeemstsui();
 
 async function collectFee() {
   const { address } = getExecStuff();
@@ -86,3 +88,12 @@ async function refreshh() {
   }
 }
 // refreshh();
+
+async function update_fee() {
+  const txb = await updateFees(0, 2, 1000, 10000);
+  if (txb) {
+    // dryRunTransactionBlock(txb);
+    executeTransactionBlock(txb);
+  }
+}
+// update_fee();
