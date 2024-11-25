@@ -92,8 +92,8 @@ async function refreshh() {
 async function update_fee() {
   const txb = await updateFees(0, 2, 1000, 10000);
   if (txb) {
-    // dryRunTransactionBlock(txb);
-    executeTransactionBlock(txb);
+    dryRunTransactionBlock(txb);
+    // executeTransactionBlock(txb);
   }
 }
-// update_fee();
+update_fee();

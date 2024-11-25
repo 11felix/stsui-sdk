@@ -15,8 +15,9 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false,
     "allowImportingTsExtensions": true,
+    "noEmit": true,
 
     // linting
     "strict": true,
@@ -26,6 +27,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
+    "declarationDir": "./dist/esm",
     // Add the baseUrl option
     "baseUrl": "./", // Specifies the base directory for non-relative module names
     "paths": {

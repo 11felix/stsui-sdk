@@ -7,6 +7,12 @@
     "skipLibCheck": true,
     "outDir": "./dist/cjs",
     "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./dist/cjs",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "resolveJsonModule": true,
     // Add the baseUrl option
     "baseUrl": "./", // Specifies the base directory for non-relative module names
     "paths": {
