@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV, getSuiClient } from "../index.js";
+import { getConf, getSuiClient } from "../index.js";
 import { CoinStruct } from "@mysten/sui/client";
 
 export async function redeem(
@@ -15,7 +15,7 @@ export async function redeem(
   do {
     const response = await getSuiClient().getCoins({
       owner: options.address,
-      coinType: conf[CONF_ENV].STSUI_COIN_TYPE,
+      coinType: getConf().STSUI_COIN_TYPE,
       cursor: currentCursor,
     });
 
@@ -45,13 +45,13 @@ export async function redeem(
   const [stSuiCoin] = txb.splitCoins(coin, [stSuiAmount]);
 
   const [sui] = txb.moveCall({
-    target: conf[CONF_ENV].STSUI_LATEST_PACKAGE_ID + "::liquid_staking::redeem",
+    target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::redeem",
     arguments: [
-      txb.object(conf[CONF_ENV].LST_INFO),
+      txb.object(getConf().LST_INFO),
       stSuiCoin,
-      txb.object(conf[CONF_ENV].SUI_SYSTEM_STATE_OBJECT_ID),
+      txb.object(getConf().SUI_SYSTEM_STATE_OBJECT_ID),
     ],
-    typeArguments: [conf[CONF_ENV].STSUI_COIN_TYPE],
+    typeArguments: [getConf().STSUI_COIN_TYPE],
   });
   txb.transferObjects([sui, coin], options.address);
   return txb;

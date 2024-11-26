@@ -1,7 +1,6 @@
 import { stSuiExchangeRate } from "../src/common/utils.ts";
 import {
-  conf,
-  CONF_ENV,
+  getConf,
   create_lst,
   set_validators,
   mint as mintStsui,
@@ -20,7 +19,7 @@ async function createLst() {
   const { address } = getExecStuff();
   const txb = await create_lst(
     "0x31c042dcc980819ce57a81f73e9f1bcf462c17a94d24a7aee50954f56fbd0ddc",
-    conf[CONF_ENV].STSUI_COIN_TYPE,
+    getConf().STSUI_COIN_TYPE,
     10,
     10,
     1000,

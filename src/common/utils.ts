@@ -1,4 +1,4 @@
-import { getSuiClient, conf, CONF_ENV, LiquidStakingInfo } from "../index.js";
+import { getSuiClient, getConf, LiquidStakingInfo } from "../index.js";
 import { Decimal } from "decimal.js";
 
 export async function stSuiExchangeRate(): Promise<string> {
@@ -19,7 +19,7 @@ export async function stSuiExchangeRate(): Promise<string> {
 export async function getLstInfo(): Promise<LiquidStakingInfo | undefined> {
   const lstInfo = (
     await getSuiClient().getObject({
-      id: conf[CONF_ENV].LST_INFO,
+      id: getConf().LST_INFO,
       options: {
         showContent: true,
       },

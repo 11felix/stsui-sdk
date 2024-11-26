@@ -1,6 +1,6 @@
-export const CONF_ENV = "testing";
+const CONF_ENV = "testing";
 
-export const conf = {
+const conf = {
   testing: {
     // General Contants
     STSUI_FIRST_PACKAGE_ID:
@@ -52,3 +52,7 @@ export const conf = {
     STSUI_COIN_TYPE: "",
   },
 };
+
+export function getConf() {
+  return conf[CONF_ENV];
+}

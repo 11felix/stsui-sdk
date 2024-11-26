@@ -1,5 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { conf, CONF_ENV } from "../index.js";
+import { getConf } from "../index.js";
 
 export async function set_validators(
   addresses: string[],
@@ -29,14 +29,14 @@ export async function set_validators(
 
   txb.moveCall({
     target:
-      conf[CONF_ENV].STSUI_LATEST_PACKAGE_ID +
+      getConf().STSUI_LATEST_PACKAGE_ID +
       "::liquid_staking::set_validator_addresses_and_weights",
     arguments: [
-      txb.object(conf[CONF_ENV].LST_INFO),
+      txb.object(getConf().LST_INFO),
       vec_map,
-      txb.object(conf[CONF_ENV].ADMIN_CAP),
+      txb.object(getConf().ADMIN_CAP),
     ],
-    typeArguments: [conf[CONF_ENV].STSUI_COIN_TYPE],
+    typeArguments: [getConf().STSUI_COIN_TYPE],
   });
 
   return txb;
