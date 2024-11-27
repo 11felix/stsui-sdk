@@ -13,6 +13,9 @@ export async function stSuiExchangeRate(): Promise<string> {
   const totalStSuiSupply = new Decimal(
     lstInfo.content.fields.lst_treasury_cap.fields.total_supply.fields.value.toString(),
   );
+  if (totalStSuiSupply.eq(0)) {
+    return "0";
+  }
   return totalSuiSupply.div(totalStSuiSupply).toString();
 }
 

@@ -1,4 +1,4 @@
-const CONF_ENV = "testing";
+const CONF_ENV = "production";
 
 const conf = {
   testing: {
@@ -33,13 +33,20 @@ const conf = {
   production: {
     // General Contants
 
-    STSUI_FIRST_PACKAGE_ID: "",
+    STSUI_FIRST_PACKAGE_ID:
+      "0x4afeb21757f96625ba0578f533cdf94b1bd383f5b11e16403d814194dd944569",
 
-    STSUI_LATEST_PACKAGE_ID: "",
+    STSUI_LATEST_PACKAGE_ID:
+      "0x4afeb21757f96625ba0578f533cdf94b1bd383f5b11e16403d814194dd944569",
 
-    LST_INFO: "",
+    LST_INFO:
+      "0xb871f75b4d1091221effd9f1cd699d2063d7186b4329742965ec9ceb0cbae531",
 
-    ADMIN_CAP: "",
+    ADMIN_CAP:
+      "0xe957667d7c291e905cd5ae45de023839620b3397302c466ebc9e73a1b6f26b70",
+
+    COLLECTION_FEE_CAP_ID:
+      "0x2532d8cf99976c094f20e57232bc89cfd235aff82a09d88376b6645c3806788b",
 
     SUI_SYSTEM_STATE_OBJECT_ID: "0x5",
 
@@ -49,7 +56,8 @@ const conf = {
 
     SUI_COIN_TYPE: "0x2::sui::SUI",
 
-    STSUI_COIN_TYPE: "",
+    STSUI_COIN_TYPE:
+      "0x6842ea7255834b5f9e63490a660a33b2e1a27b32649dd1516c94f47ef1e2b32a::st_sui::ST_SUI",
   },
 };
 

@@ -14,11 +14,11 @@ import {
   executeTransactionBlock,
   getExecStuff,
 } from "./utils.ts";
-
+// mainnet st sui treasury cap: 0xfeec68daa7a6a595834cdd0c74be1ecd55b3108ff07721623ae90ae41a53fedd
 async function createLst() {
   const { address } = getExecStuff();
   const txb = await create_lst(
-    "0x31c042dcc980819ce57a81f73e9f1bcf462c17a94d24a7aee50954f56fbd0ddc",
+    "0xfeec68daa7a6a595834cdd0c74be1ecd55b3108ff07721623ae90ae41a53fedd",
     getConf().STSUI_COIN_TYPE,
     10,
     10,
@@ -40,18 +40,16 @@ async function setValidators() {
     ],
     [50, 50],
   );
-  if (txb)
-    // dryRunTransactionBlock(txb);
-    executeTransactionBlock(txb);
+  if (txb) dryRunTransactionBlock(txb);
+  // executeTransactionBlock(txb);
 }
 // setValidators();
 
 async function mint() {
   const { address } = getExecStuff();
-  const txb = await mintStsui("20000000000", { address });
-  if (txb)
-    // dryRunTransactionBlock(txb);
-    executeTransactionBlock(txb);
+  const txb = await mintStsui("1000000", { address });
+  if (txb) dryRunTransactionBlock(txb);
+  //   executeTransactionBlock(txb);
 }
 // mint();
 
@@ -77,7 +75,7 @@ async function collectFee() {
 async function xrate() {
   console.log(await stSuiExchangeRate());
 }
-// xrate();
+xrate();
 
 async function refreshh() {
   const txb = await refresh();
@@ -95,4 +93,4 @@ async function update_fee() {
     // executeTransactionBlock(txb);
   }
 }
-update_fee();
+// update_fee();
