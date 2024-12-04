@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@mysten/sui": "1.15.0",
+    "@types/bn.js": "^5.1.6",
     "decimal.js": "^10.4.3"
   }
 }
