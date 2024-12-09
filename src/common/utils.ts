@@ -1,6 +1,8 @@
 import { getSuiClient, getConf, LiquidStakingInfo } from "../index.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../pyth/pyth.js";
+import { bech32 } from "bech32";
+import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 
 export async function stSuiExchangeRate(): Promise<string> {
   const lstInfo = await getLstInfo();
@@ -107,3 +109,30 @@ export const fetchtotalStakers = async () => {
 };
 
 export const fetchAPY = () => {};
+
+//--------------- others ------------------
+// Function to decode Bech32 private key
+function decodeBech32PrivateKey(bech32Key: string): Uint8Array {
+  const decoded = bech32.decode(bech32Key);
+  const decodedBytes = Buffer.from(bech32.fromWords(decoded.words));
+
+  // Strip leading byte if the key is 33 bytes
+  if (decodedBytes.length === 33) {
+    return decodedBytes.subarray(1);
+  }
+
+  if (decodedBytes.length !== 32) {
+    throw new Error(
+      `Invalid secretKey size. Expected 32 bytes, got ${decodedBytes.length}.`,
+    );
+  }
+
+  return decodedBytes;
+}
+
+// Function to create signer
+export function createSigner(bech32Key: string) {
+  const privateKeyBytes = decodeBech32PrivateKey(bech32Key);
+  const keypair = Ed25519Keypair.fromSecretKey(privateKeyBytes);
+  return keypair;
+}
