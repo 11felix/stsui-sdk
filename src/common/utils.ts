@@ -91,14 +91,14 @@ export const fetchCurrentStSuiEpoch = async () => {
 export const fetchStSuiAPR = async () => {
   try {
     //find the exact formula here
-    return 4.3;
+    return 3;
   } catch (error) {
     console.log("error", error);
     return 0;
   }
 };
 
-export const fetchtotalStakers = async () => {
+export const fetchTotalStakers = async () => {
   try {
     //find the exact formula here
     return 3000;
