@@ -23,11 +23,11 @@ import {
 async function createLst() {
   const { address } = getExecStuff();
   const txb = await create_lst(
-    "0x6fbb491b186092d8e5bdad44891e64e0177ffa3f318af1004cfd5db904805aa4",
+    "0x84d74e399c3b47e809aa13e23badadaee9ea425dacbac804ed71326f4f5ab0ac",
     getConf().STSUI_COIN_TYPE,
-    10,
-    10,
-    1000,
+    0,
+    1,
+    600,
     10000,
     { address },
   );
@@ -35,30 +35,29 @@ async function createLst() {
   executeTransactionBlock(txb);
 }
 
-// createLst();
+//createLst();
 
 async function setValidators() {
   const txb = await set_validators(
     [
-      "0xa0920b0776bf13ee51b009c97b85dbf48100ae1510623b9a767450e4a481a1e2",
-      "0x9275c6e27c1ce98b08edb3d88e71880520aa114fbf3745d333252f7a47672882",
+      "0xcb7efe4253a0fe58df608d8a2d3c0eea94b4b40a8738c8daae4eb77830c16cd7",
     ],
-    [50, 50],
+    [100],
   );
-  if (txb) dryRunTransactionBlock(txb);
-  // executeTransactionBlock(txb);
+  if (txb) //dryRunTransactionBlock(txb);
+   executeTransactionBlock(txb);
 }
-// setValidators();
+ //setValidators();
 
 async function mint() {
   const { address } = getExecStuff();
-  const txb = await mintStsui("100000000", { address });
+  const txb = await mintStsui("1000000000", { address });
   if (txb) {
     // dryRunTransactionBlock(txb);
     executeTransactionBlock(txb);
   }
 }
-// mint();
+ mint();
 
 async function redeemstsui() {
   const { address } = getExecStuff();
@@ -83,7 +82,7 @@ async function xrate() {
   console.log(await stSuiExchangeRate());
   console.log((await getFees()) as FeeConfig);
 }
-// xrate();
+//xrate();
 
 async function refreshh() {
   const txb = await refresh();
