@@ -123,7 +123,7 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
 
       sumOfAprs = sumOfAprs.plus(changeInAYear);
     }
-    apr = sumOfAprs.div(days);
+    apr = sumOfAprs.div(epochChangeEvents.length - 1);
     return apr.toString();
   } catch (error) {
     console.log("error", error);
