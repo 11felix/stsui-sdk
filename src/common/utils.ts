@@ -1,4 +1,9 @@
-import { getSuiClient, getConf, LiquidStakingInfo } from "../index.js";
+import {
+  getSuiClient,
+  getConf,
+  LiquidStakingInfo,
+  FeeConfig,
+} from "../index.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../pyth/pyth.js";
 import { bech32 } from "bech32";
@@ -108,6 +113,18 @@ export const fetchtotalStakers = async () => {
   }
 };
 
+export const getFees = async (): Promise<FeeConfig | undefined> => {
+  try {
+    const lstInfo = await getLstInfo();
+    if (!lstInfo) {
+      console.error("couldnt fetch lst info object");
+      return;
+    }
+    return lstInfo.content.fields.fee_config.fields.element.fields as FeeConfig;
+  } catch (e) {
+    console.error("error", e);
+  }
+};
 export const fetchAPY = () => {};
 
 //--------------- others ------------------

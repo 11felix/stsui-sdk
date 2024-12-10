@@ -11,6 +11,12 @@ export type LiquidStakingInfo = {
       fees: string;
       fee_config: {
         type: string;
+        fields: {
+          element: {
+            type: string;
+            fields: FeeConfig;
+          };
+        };
         //add more fields as per use
       };
       lst_treasury_cap: {
@@ -35,4 +41,15 @@ export type LiquidStakingInfo = {
       };
     };
   };
+};
+
+export type FeeConfig = {
+  custom_redeem_fee_bps: string;
+  flash_stake_fee_bps: string;
+  redeem_fee_bps: string;
+  redeem_fee_distribution_component_bps: string;
+  spread_fee_bps: string;
+  staked_sui_mint_fee_bps: string;
+  staked_sui_redeem_fee_bps: string;
+  sui_mint_fee_bps: string;
 };
