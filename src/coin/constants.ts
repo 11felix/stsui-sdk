@@ -153,7 +153,7 @@ export const coins: { [key in CoinName]: Coin } = {
   },
   STSUI: {
     name: "STSUI",
-    type: "0x6842ea7255834b5f9e63490a660a33b2e1a27b32649dd1516c94f47ef1e2b32a::st_sui::ST_SUI",
+    type: "0x3f59d6777528ef4f73ea7981c3f3ae0a522aece3efc04dc06c0c07218f284775::st_sui::ST_SUI",
     icon: "",
     expo: 9,
   },
