@@ -78,7 +78,7 @@ async function collectFee() {
 
 async function xrate() {
   console.log(await stSuiExchangeRate());
-  console.log((await getFees() as FeeConfig));
+  console.log((await getFees()) as FeeConfig);
 }
 xrate();
 
