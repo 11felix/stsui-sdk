@@ -10,6 +10,9 @@ import {
   updateFees,
   getFees,
   FeeConfig,
+  Events,
+  fetchStSuiAPR,
+  fetchStSuiAPY,
 } from "../src/index.ts";
 import {
   dryRunTransactionBlock,
@@ -78,9 +81,9 @@ async function collectFee() {
 
 async function xrate() {
   console.log(await stSuiExchangeRate());
-  console.log((await getFees() as FeeConfig));
+  console.log((await getFees()) as FeeConfig);
 }
-xrate();
+// xrate();
 
 async function refreshh() {
   const txb = await refresh();
@@ -99,3 +102,21 @@ async function update_fee() {
   }
 }
 // update_fee();
+
+async function epochEvents() {
+  let ok = await Events.getEpochChangeEvents({
+    startTime: 1733776365964,
+    endTime: 1733827977386,
+  });
+  console.log(ok);
+}
+// epochEvents();
+
+async function apr() {
+  console.log(await fetchStSuiAPR(2));
+}
+// apr();
+async function apy() {
+  console.log(await fetchStSuiAPY(2));
+}
+apy();
