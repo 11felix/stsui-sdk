@@ -8,6 +8,8 @@ import {
   collect_fee,
   refresh,
   updateFees,
+  getFees,
+  FeeConfig,
 } from "../src/index.ts";
 import {
   dryRunTransactionBlock,
@@ -63,7 +65,7 @@ async function redeemstsui() {
     executeTransactionBlock(txb);
   }
 }
-redeemstsui();
+// redeemstsui();
 
 async function collectFee() {
   const { address } = getExecStuff();
@@ -76,8 +78,9 @@ async function collectFee() {
 
 async function xrate() {
   console.log(await stSuiExchangeRate());
+  console.log((await getFees() as FeeConfig));
 }
-// xrate();
+xrate();
 
 async function refreshh() {
   const txb = await refresh();
