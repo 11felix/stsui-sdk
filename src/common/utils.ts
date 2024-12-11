@@ -105,7 +105,7 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
       startTime: startTime,
       endTime: endTime,
     });
-    if(epochChangeEvents.length < 2){
+    if (epochChangeEvents.length < 2) {
       return "0";
     }
     let apr = new Decimal(0);
