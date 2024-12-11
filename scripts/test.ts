@@ -56,7 +56,7 @@ async function mint() {
     executeTransactionBlock(txb);
   }
 }
-mint();
+// mint();
 
 async function redeemstsui() {
   const { address } = getExecStuff();
@@ -113,8 +113,8 @@ async function epochEvents() {
 async function apr() {
   console.log(await fetchStSuiAPR(2));
 }
-// apr();
+apr();
 async function apy() {
   console.log(await fetchStSuiAPY(2));
 }
-apy();
+// apy();
