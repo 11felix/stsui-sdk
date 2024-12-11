@@ -3,6 +3,7 @@ import {
   getConf,
   LiquidStakingInfo,
   FeeConfig,
+  Events,
 } from "../index.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../pyth/pyth.js";
@@ -93,17 +94,59 @@ export const fetchCurrentStSuiEpoch = async () => {
   }
 };
 
-export const fetchStSuiAPR = async () => {
+export const fetchStSuiAPR = async (days: number): Promise<string> => {
   try {
-    //find the exact formula here
-    return 4.3;
+    if (days === 0) {
+      return "0";
+    }
+    const endTime = Date.now();
+    const startTime = endTime - (days + 1) * 86400000;
+    const epochChangeEvents = await Events.getEpochChangeEvents({
+      startTime: startTime,
+      endTime: endTime,
+    });
+    let apr = new Decimal(0);
+    let sumOfAprs = new Decimal(0);
+    for (let i = 1; i < epochChangeEvents.length; i++) {
+      const e0 = epochChangeEvents[i - 1];
+      const e1 = epochChangeEvents[i];
+      const newRatio = new Decimal(
+        Number(e0.event.new_sui_supply) - Number(e0.event.spread_fee),
+      ).div(e0.event.lst_supply);
+      const oldRatio = new Decimal(
+        Number(e1.event.new_sui_supply) - Number(e1.event.spread_fee),
+      ).div(e1.event.lst_supply);
+      const changeInAYear = newRatio
+        .minus(oldRatio)
+        .mul(100 * 365)
+        .div(oldRatio);
+
+      sumOfAprs = sumOfAprs.plus(changeInAYear);
+    }
+    apr = sumOfAprs.div(epochChangeEvents.length - 1);
+    return apr.toString();
   } catch (error) {
     console.log("error", error);
-    return 0;
+    return "0";
   }
 };
 
-export const fetchtotalStakers = async () => {
+export const fetchStSuiAPY = async (days: number): Promise<string> => {
+  try {
+    const apr = await fetchStSuiAPR(days);
+    const apy = convertAprToApy(Number(apr));
+    return apy.toString();
+  } catch (e) {
+    console.log("error", e);
+    return "0";
+  }
+};
+function convertAprToApy(apr: number): number {
+  const n = 365;
+  const apy = 100 * (Math.pow(1 + apr / 100 / n, n) - 1);
+  return apy;
+}
+export const fetchTotalStakers = async () => {
   try {
     //find the exact formula here
     return 3000;
