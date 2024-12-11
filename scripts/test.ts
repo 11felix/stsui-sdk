@@ -39,15 +39,14 @@ async function createLst() {
 
 async function setValidators() {
   const txb = await set_validators(
-    [
-      "0xcb7efe4253a0fe58df608d8a2d3c0eea94b4b40a8738c8daae4eb77830c16cd7",
-    ],
+    ["0xcb7efe4253a0fe58df608d8a2d3c0eea94b4b40a8738c8daae4eb77830c16cd7"],
     [100],
   );
-  if (txb) //dryRunTransactionBlock(txb);
-   executeTransactionBlock(txb);
+  if (txb)
+    //dryRunTransactionBlock(txb);
+    executeTransactionBlock(txb);
 }
- //setValidators();
+//setValidators();
 
 async function mint() {
   const { address } = getExecStuff();
@@ -57,7 +56,7 @@ async function mint() {
     executeTransactionBlock(txb);
   }
 }
- mint();
+mint();
 
 async function redeemstsui() {
   const { address } = getExecStuff();

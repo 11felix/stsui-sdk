@@ -146,7 +146,7 @@ function convertAprToApy(apr: number): number {
   const apy = 100 * (Math.pow(1 + apr / 100 / n, n) - 1);
   return apy;
 }
-export const fetchtotalStakers = async () => {
+export const fetchTotalStakers = async () => {
   try {
     //find the exact formula here
     return 3000;
