@@ -53,3 +53,32 @@ export type FeeConfig = {
   staked_sui_redeem_fee_bps: string;
   sui_mint_fee_bps: string;
 };
+
+export type CommonEventParams = {
+  startTime?: number;
+  endTime?: number;
+};
+
+export type EpochChangedEvent = {
+  event: {
+    typename: {
+      name: string;
+    };
+    old_sui_supply: string;
+    new_sui_supply: string;
+    lst_supply: string;
+    spread_fee: string;
+  };
+};
+
+export type MintEvent = {
+  event: {
+    typename: {
+      name: string;
+    };
+    sui_amount_in: string;
+    lst_amount_out: string;
+    fee_amount: string;
+    sender: string;
+  };
+};
