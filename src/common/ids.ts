@@ -34,19 +34,19 @@ const conf = {
     // General Contants
 
     STSUI_FIRST_PACKAGE_ID:
-      "0xac608850e8d93d379de3d87f98da6c07be907d163fbe33383a829aab47633dae",
+      "0xc35ee7fee75782806890cf8ed8536b52b4ba0ace0fb46b944f1155cc5945baa3",
 
     STSUI_LATEST_PACKAGE_ID:
-      "0xac608850e8d93d379de3d87f98da6c07be907d163fbe33383a829aab47633dae",
+      "0xc35ee7fee75782806890cf8ed8536b52b4ba0ace0fb46b944f1155cc5945baa3",
 
     LST_INFO:
-      "0x654f509e4c9ca5fe798e5bed7b8521d2eef5d0a1fc614d849fd1f8b370d998b2",
+      "0x1adb343ab351458e151bc392fbf1558b3332467f23bda45ae67cd355a57fd5f5",
 
     ADMIN_CAP:
-      "0x32871d776da64eb51eb3c8d6bb96f888a8ffb8c005b13da804b6f61417de23f3",
+      "0x0d8f3533846c914a025744d87bc33715543fb87cf8f5ab9e3dd67dd7db65f273",
 
     COLLECTION_FEE_CAP_ID:
-      "0xe3165a3d30e6fe913478955133c67bf457992b09fdd2c1e6371da1ee3fa296aa",
+      "0x019466989adf3cf8320f8e7ab45a44c6f8ce9688125852b60c82475d2d2f9849",
 
     SUI_SYSTEM_STATE_OBJECT_ID: "0x5",
 
@@ -57,7 +57,7 @@ const conf = {
     SUI_COIN_TYPE: "0x2::sui::SUI",
 
     STSUI_COIN_TYPE:
-      "0x3f59d6777528ef4f73ea7981c3f3ae0a522aece3efc04dc06c0c07218f284775::st_sui::ST_SUI",
+      "0xd1b72982e40348d069bb1ff701e634c117bb5f741f44dff91e472d3b01461e55::stsui::STSUI",
   },
 };
 
