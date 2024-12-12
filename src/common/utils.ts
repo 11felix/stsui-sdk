@@ -51,15 +51,13 @@ export const stStuiCirculationSupply = async () => {
       lstInfo.content.fields.lst_treasury_cap.fields.total_supply.fields.value.toString(),
     );
     const suiPrice = await getLatestPrices(["SUI/USD"], false);
-    console.log("sui price", suiPrice);
     const stSuiExchRate = await stSuiExchangeRate();
-    console.log("stsui exch rate", stSuiExchRate);
     const StSuitotalSupply = (
-      parseFloat(totalStSuiSupply.toString()) *
-      parseFloat(suiPrice[0]) *
-      parseFloat(stSuiExchRate)
+      (parseFloat(totalStSuiSupply.toString()) *
+        parseFloat(suiPrice[0]) *
+        parseFloat(stSuiExchRate)) /
+      10 ** 9
     ).toFixed(0);
-    console.log("StSuitotalSupply", StSuitotalSupply);
     return StSuitotalSupply;
   } catch (error) {
     console.log("error", error);
@@ -77,7 +75,7 @@ export const fetchTotalSuiStaked = async () => {
     const totalSuiStaked = new Decimal(
       lstInfo.content.fields.storage.fields.total_sui_supply.toString(),
     ).minus(new Decimal(lstInfo.content.fields.accrued_spread_fees));
-    return totalSuiStaked;
+    return totalSuiStaked.div(10 ** 9);
   } catch (error) {
     console.log("error", error);
     return 0;
@@ -86,7 +84,7 @@ export const fetchTotalSuiStaked = async () => {
 
 export const fetchCurrentStSuiEpoch = async () => {
   try {
-    const currentEpoch = (await getSuiClient().getCurrentEpoch()).epoch;
+    const currentEpoch = (await getSuiClient().getLatestSuiSystemState()).epoch;
     return currentEpoch;
   } catch (error) {
     console.log("error", error);
