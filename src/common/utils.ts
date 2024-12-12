@@ -103,8 +103,12 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
       startTime: startTime,
       endTime: endTime,
     });
+    if (epochChangeEvents.length < 2) {
+      return "0";
+    }
     let apr = new Decimal(0);
     let sumOfAprs = new Decimal(0);
+
     for (let i = 1; i < epochChangeEvents.length; i++) {
       const e0 = epochChangeEvents[i - 1];
       const e1 = epochChangeEvents[i];
