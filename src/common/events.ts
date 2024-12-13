@@ -77,7 +77,11 @@ export class Events {
         if (Number(eve.timestampMs!) < startTime) {
           return events;
         }
-        const event = eve.parsedJson as MintEvent;
+        const event = {
+          ...(eve.parsedJson as MintEvent),
+          sender: eve.sender,
+          timestamp: eve.timestampMs,
+        } as MintEvent;
         events.push(event);
       }
       hasNext = eventData.hasNextPage;
