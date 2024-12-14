@@ -79,6 +79,30 @@ export type MintEvent = {
     sui_amount_in: string;
     lst_amount_out: string;
     fee_amount: string;
-    sender: string;
+  };
+  sender: string;
+  timestamp: string;
+};
+
+export type Meta = {
+  objectId: string;
+  version: string;
+  digest: string;
+  content: {
+    dataType: string;
+    type: string;
+    hasPublicTransfer: boolean;
+    fields: {
+      last_update_event_timestamp: string;
+      stakers: {
+        type: string;
+        fields: {
+          id: {
+            id: string;
+          };
+          size: string;
+        };
+      };
+    };
   };
 };

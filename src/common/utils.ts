@@ -4,11 +4,13 @@ import {
   LiquidStakingInfo,
   FeeConfig,
   Events,
+  Meta,
 } from "../index.js";
 import { Decimal } from "decimal.js";
 import { getLatestPrices } from "../pyth/pyth.js";
 import { bech32 } from "bech32";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
+import { Transaction } from "@mysten/sui/transactions";
 
 export async function stSuiExchangeRate(): Promise<string> {
   const lstInfo = await getLstInfo();
@@ -38,6 +40,18 @@ export async function getLstInfo(): Promise<LiquidStakingInfo | undefined> {
     })
   ).data as LiquidStakingInfo;
   return lstInfo;
+}
+
+export async function getMeta(): Promise<Meta | undefined> {
+  const meta = (
+    await getSuiClient().getObject({
+      id: getConf().META_OBJECT,
+      options: {
+        showContent: true,
+      },
+    })
+  ).data as Meta;
+  return meta;
 }
 
 export const stStuiCirculationSupply = async () => {
@@ -103,6 +117,7 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
       startTime: startTime,
       endTime: endTime,
     });
+
     if (epochChangeEvents.length < 2) {
       return "0";
     }
@@ -148,13 +163,54 @@ function convertAprToApy(apr: number): number {
   const apy = 100 * (Math.pow(1 + apr / 100 / n, n) - 1);
   return apy;
 }
-export const fetchTotalStakers = async () => {
+export const fetchTotalStakers = async (): Promise<string> => {
   try {
-    //find the exact formula here
-    return 3000;
+    const meta = await getMeta();
+    if (meta) {
+      return meta.content.fields.stakers.fields.size.toString();
+    } else {
+      console.error("error: couldnt fetch meta");
+      return "0";
+    }
   } catch (error) {
     console.log("error", error);
-    return 0;
+    return "0";
+  }
+};
+
+export const updateTotalStakers = async (): Promise<
+  Transaction | undefined
+> => {
+  try {
+    const meta = await getMeta();
+    if (!meta) {
+      throw new Error("error couldnt fetch meta");
+    }
+    const e = Date.now();
+    const s = Number(meta.content.fields.last_update_event_timestamp) + 1;
+    const mintEvents = await Events.getMintEvents({ startTime: s, endTime: e });
+    if (mintEvents.length == 0) {
+      console.log("no mint events");
+      return;
+    }
+    const senders = new Set(mintEvents.map((event) => event.sender));
+
+    const txb = new Transaction();
+    txb.moveCall({
+      target: `${getConf().META_PACKAGE_ID}::meta::update`,
+      arguments: [
+        txb.object(getConf().META_ADMIN_CAP),
+        txb.object(getConf().META_OBJECT),
+        txb.makeMoveVec({
+          type: "address",
+          elements: [...senders].map((add) => txb.pure.address(add)),
+        }),
+        txb.pure.u64(Number(mintEvents[0].timestamp)),
+      ],
+    });
+    return txb;
+  } catch (e) {
+    console.error("error", e);
   }
 };
 

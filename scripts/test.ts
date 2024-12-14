@@ -1,3 +1,4 @@
+import { exec } from "child_process";
 import { stSuiExchangeRate } from "../src/common/utils.ts";
 import {
   getConf,
@@ -13,6 +14,8 @@ import {
   Events,
   fetchStSuiAPR,
   fetchStSuiAPY,
+  fetchTotalStakers,
+  updateTotalStakers,
 } from "../src/index.ts";
 import {
   dryRunTransactionBlock,
@@ -79,9 +82,9 @@ async function collectFee() {
 
 async function xrate() {
   console.log(await stSuiExchangeRate());
-  console.log((await getFees()) as FeeConfig);
+  // console.log((await getFees()) as FeeConfig);
 }
-//xrate();
+// xrate();
 
 async function refreshh() {
   const txb = await refresh();
@@ -113,8 +116,22 @@ async function epochEvents() {
 async function apr() {
   console.log(await fetchStSuiAPR(2));
 }
-apr();
+// apr();
 async function apy() {
-  console.log(await fetchStSuiAPY(2));
+  console.log(await fetchStSuiAPY(1));
 }
 // apy();
+
+async function totalStakers() {
+  let txb = await updateTotalStakers();
+  if (txb) {
+    // executeTransactionBlock(txb);
+    dryRunTransactionBlock(txb);
+  }
+}
+totalStakers();
+
+async function fetchTotalStakerss() {
+  console.log(await fetchTotalStakers());
+}
+// fetchTotalStakerss()
