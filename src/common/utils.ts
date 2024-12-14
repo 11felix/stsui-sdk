@@ -123,8 +123,9 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
     }
     let apr = new Decimal(0);
     let sumOfAprs = new Decimal(0);
+    const len = Math.min(epochChangeEvents.length, days + 1); // for the case where there are more events than expected.
 
-    for (let i = 1; i < epochChangeEvents.length; i++) {
+    for (let i = 1; i < len; i++) {
       const e0 = epochChangeEvents[i - 1];
       const e1 = epochChangeEvents[i];
       const newRatio = new Decimal(
@@ -140,7 +141,7 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
 
       sumOfAprs = sumOfAprs.plus(changeInAYear);
     }
-    apr = sumOfAprs.div(epochChangeEvents.length - 1);
+    apr = sumOfAprs.div(len - 1);
     return apr.toString();
   } catch (error) {
     console.log("error", error);
