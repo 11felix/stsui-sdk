@@ -118,9 +118,9 @@ async function apr() {
 }
 // apr();
 async function apy() {
-  console.log(await fetchStSuiAPY(1));
+  console.log(await fetchStSuiAPY(2));
 }
-// apy();
+apy();
 
 async function totalStakers() {
   let txb = await updateTotalStakers();
@@ -129,7 +129,7 @@ async function totalStakers() {
     dryRunTransactionBlock(txb);
   }
 }
-totalStakers();
+// totalStakers();
 
 async function fetchTotalStakerss() {
   console.log(await fetchTotalStakers());
