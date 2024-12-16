@@ -75,7 +75,7 @@ export const stStuiCirculationSupply = async () => {
     return StSuitotalSupply;
   } catch (error) {
     console.log("error", error);
-    return 0;
+    return "0";
   }
 };
 

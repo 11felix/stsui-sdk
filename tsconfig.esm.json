@@ -7,7 +7,7 @@
     "rootDir": "./src",
 
     // build
-    "types": ["node"],
+    "types": ["node","jest"],
     "esModuleInterop": true,
     "preserveConstEnums": true,
     "skipLibCheck": true,
