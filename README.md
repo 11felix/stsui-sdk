@@ -60,7 +60,7 @@ const exchangeRateOfStSui: string = await stSuiExchangeRate();
 Call this to get tvl of stSUI.
 
 ```typescript
-import { stStuiCirculationSupply } from "@alphafi/alphafi-sdk";
+import { stStuiCirculationSupply } from "@stsui-sdk";
 
 const tvl: string = await stStuiCirculationSupply();
 ```
