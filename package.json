@@ -1,6 +1,6 @@
 {
-  "name": "stsui-sdk",
-  "version": "1.0.0",
+  "name": "@alphafi/stsui-sdk",
+  "version": "0.0.1",
   "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
