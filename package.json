@@ -18,13 +18,17 @@
     "build:cjs": "tsc --project tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "postbuild": "npm link",
     "pretty": "prettier . --write",
-    "lint": "eslint 'src/**/*.ts' --fix"
+    "lint": "eslint 'src/**/*.ts' --fix",
+    "test:esm": "jest --config jest.config.esm.js",
+    "test:cjs": "jest --config jest.config.cjs.js",
+    "test": "npm run test:esm && npm run test:cjs"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.1",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
@@ -37,6 +41,8 @@
   "dependencies": {
     "@mysten/sui": "1.15.0",
     "@types/bn.js": "^5.1.6",
-    "decimal.js": "^10.4.3"
+    "decimal.js": "^10.4.3",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
   }
 }

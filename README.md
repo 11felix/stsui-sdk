@@ -15,10 +15,7 @@ Call mint function to stake SUI and get stSUI.
 ```typescript
 import { mint } from "@stsui-sdk";
 import { Transaction } from "@mysten/sui/transactions";
-const stakeSUI: Transaction = await mint(
-  amount,
-  {address: wallet_address},
-);
+const stakeSUI: Transaction = await mint(amount, { address: wallet_address });
 ```
 
 ## `redeem`
@@ -29,10 +26,9 @@ Call this to unstake stSUI and get SUI in return.
 import { redeem } from "@stsui-sdk";
 import { Transaction } from "@mysten/sui/transactions";
 
-const unstakeStSUI: Transaction = await redeem(
-  amount,
-  {address: wallet_address},
-);
+const unstakeStSUI: Transaction = await redeem(amount, {
+  address: wallet_address,
+});
 ```
 
 ## `fetchStSuiAPR`
@@ -41,7 +37,7 @@ Call this to get apr for stSUI.
 
 ```typescript
 import { fetchStSuiAPR } from "@stsui-sdk";
-const days = 365; //for a year
+const days: number = 365; //for a year
 const stSuiAPR: string = await fetchStSuiAPR(days);
 ```
 
@@ -64,4 +60,3 @@ import { stStuiCirculationSupply } from "@stsui-sdk";
 
 const tvl: string = await stStuiCirculationSupply();
 ```
-
