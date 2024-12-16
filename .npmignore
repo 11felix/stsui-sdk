@@ -28,4 +28,5 @@ docs/.nojekyll
 __tests__
 .github
 embed-graphql.js
-
+scripts/
+eslint.config.mjs
