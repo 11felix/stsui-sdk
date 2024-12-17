@@ -3,6 +3,7 @@ import { PaginatedCoins } from "@mysten/sui/client";
 import { getSuiClient } from "../common/client.js";
 
 export * from "./types.js";
+export * from "./constants.js";
 
 const suiClient = getSuiClient();
 

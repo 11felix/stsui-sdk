@@ -4,3 +4,4 @@ export * from "./crons/index.js";
 export * from "./stSui/index.js";
 export * from "./pyth/index.js";
 export * from "./balance.js";
+export * from "./coin/index.js";
