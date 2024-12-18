@@ -37,7 +37,7 @@ const conf = {
       "0xc35ee7fee75782806890cf8ed8536b52b4ba0ace0fb46b944f1155cc5945baa3",
 
     STSUI_LATEST_PACKAGE_ID:
-      "0xc35ee7fee75782806890cf8ed8536b52b4ba0ace0fb46b944f1155cc5945baa3",
+      "0x059f94b85c07eb74d2847f8255d8cc0a67c9a8dcc039eabf9f8b9e23a0de2700",
 
     LST_INFO:
       "0x1adb343ab351458e151bc392fbf1558b3332467f23bda45ae67cd355a57fd5f5",
