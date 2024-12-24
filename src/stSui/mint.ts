@@ -23,6 +23,7 @@ export async function mint(
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
   txb.transferObjects([coin], options.address);
+  txb.setSender(options.address);
   return txb;
 }
 
