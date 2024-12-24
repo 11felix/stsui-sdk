@@ -2,11 +2,12 @@ import {
   Transaction,
   TransactionObjectArgument,
 } from "@mysten/sui/transactions";
-import { getConf } from "../index.js";
+import { getConf, stSuiExchangeRate } from "../index.js";
+import { Decimal } from "decimal.js";
 
 export async function mint(
   sui_amount: string,
-  options: { address: string },
+  options: { address: string }
 ): Promise<Transaction> {
   const txb = new Transaction();
 
@@ -25,11 +26,15 @@ export async function mint(
   return txb;
 }
 
-export async function mintWithoutTransfer(sui_amount: string): Promise<{
+export async function mintWithoutTransfer(
+  sui_amount: string,
+  txb: Transaction | undefined = undefined
+): Promise<{
   tx: Transaction;
   coinOut: TransactionObjectArgument | undefined;
+  amountOut: string;
 }> {
-  const txb = new Transaction();
+  if (!txb) txb = new Transaction();
 
   const suiToStake = txb.splitCoins(txb.gas, [sui_amount]);
 
@@ -42,8 +47,13 @@ export async function mintWithoutTransfer(sui_amount: string): Promise<{
     ],
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
+  const exchangeRate = new Decimal(await stSuiExchangeRate());
+  const sui_amount_decimal = new Decimal(sui_amount);
+  const amountOut = sui_amount_decimal.div(exchangeRate);
+
   return {
     tx: txb,
     coinOut: coin,
+    amountOut: amountOut.toString(),
   };
 }
