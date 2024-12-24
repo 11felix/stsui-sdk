@@ -7,7 +7,7 @@ import { Decimal } from "decimal.js";
 
 export async function mint(
   sui_amount: string,
-  options: { address: string }
+  options: { address: string },
 ): Promise<Transaction> {
   const txb = new Transaction();
 
@@ -26,9 +26,9 @@ export async function mint(
   return txb;
 }
 
-export async function mintWithoutTransfer(
+export async function mintTx(
   sui_amount: string,
-  txb: Transaction | undefined = undefined
+  txb: Transaction | undefined = undefined,
 ): Promise<{
   tx: Transaction;
   coinOut: TransactionObjectArgument | undefined;

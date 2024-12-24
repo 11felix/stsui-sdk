@@ -4,11 +4,11 @@ import {
 } from "@mysten/sui/transactions";
 import { getConf, getSuiClient, stSuiExchangeRate } from "../index.js";
 import { CoinStruct } from "@mysten/sui/client";
-import Decimal from "decimal.js";
+import { Decimal } from "decimal.js";
 
 export async function redeem(
   stSuiAmount: string,
-  options: { address: string }
+  options: { address: string },
 ): Promise<Transaction> {
   const txb = new Transaction();
 
@@ -44,7 +44,7 @@ export async function redeem(
   const [coin] = txb.splitCoins(txb.object(coins[0].coinObjectId), [0]);
   txb.mergeCoins(
     coin,
-    coins.map((c) => c.coinObjectId)
+    coins.map((c) => c.coinObjectId),
   );
   const [stSuiCoin] = txb.splitCoins(coin, [stSuiAmount]);
 
@@ -61,10 +61,10 @@ export async function redeem(
   return txb;
 }
 
-export async function redeemWithOutTransfer(
+export async function redeemTx(
   stSuiAmount: string,
   txb: Transaction | undefined = undefined,
-  options: { address: string }
+  options: { address: string },
 ): Promise<{
   tx: Transaction;
   coinOut: TransactionObjectArgument | undefined;
@@ -104,7 +104,7 @@ export async function redeemWithOutTransfer(
   const [coin] = txb.splitCoins(txb.object(coins[0].coinObjectId), [0]);
   txb.mergeCoins(
     coin,
-    coins.map((c) => c.coinObjectId)
+    coins.map((c) => c.coinObjectId),
   );
   const [stSuiCoin] = txb.splitCoins(coin, [stSuiAmount]);
 
