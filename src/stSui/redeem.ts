@@ -60,7 +60,7 @@ export async function redeem(
   return txb;
 }
 
-export async function redeemWithOutTransfer(
+export async function redeemTx(
   stSuiAmount: string,
   options: { address: string },
 ): Promise<{

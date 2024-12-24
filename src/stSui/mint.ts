@@ -25,7 +25,7 @@ export async function mint(
   return txb;
 }
 
-export async function mintWithoutTransfer(sui_amount: string): Promise<{
+export async function mintTx(sui_amount: string): Promise<{
   tx: Transaction;
   coinOut: TransactionObjectArgument | undefined;
 }> {
