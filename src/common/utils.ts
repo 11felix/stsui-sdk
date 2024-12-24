@@ -11,9 +11,10 @@ import { getLatestPrices } from "../pyth/pyth.js";
 import { bech32 } from "bech32";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { Transaction } from "@mysten/sui/transactions";
+import { SimpleCache } from "./simpleCache.js";
 
 export async function stSuiExchangeRate(): Promise<string> {
-  const lstInfo = await getLstInfo();
+  const lstInfo = await getLstInfo(false);
   if (!lstInfo) {
     console.error("couldnt fetch lst info object");
     return "0";
@@ -30,16 +31,55 @@ export async function stSuiExchangeRate(): Promise<string> {
   return totalSuiSupply.div(totalStSuiSupply).toString();
 }
 
-export async function getLstInfo(): Promise<LiquidStakingInfo | undefined> {
-  const lstInfo = (
-    await getSuiClient().getObject({
-      id: getConf().LST_INFO,
-      options: {
-        showContent: true,
-      },
-    })
-  ).data as LiquidStakingInfo;
-  return lstInfo;
+const lsInfoCache = new SimpleCache<LiquidStakingInfo>();
+const lsInfoPromiseCache = new SimpleCache<
+  Promise<LiquidStakingInfo | undefined>
+>();
+export async function getLstInfo(
+  ignoreCache: boolean,
+): Promise<LiquidStakingInfo | undefined> {
+  const cacheKey = `lsInfo`;
+  if (ignoreCache) {
+    lsInfoCache.delete(cacheKey);
+    lsInfoPromiseCache.delete(cacheKey);
+  }
+  // Check if the investor is already in the cache
+  const lstInfoDetails = lsInfoCache.get(cacheKey);
+  if (lstInfoDetails) {
+    return lstInfoDetails;
+  }
+
+  // Check if there is already a promise in the cache
+  let lstInfoPromise = lsInfoPromiseCache.get(cacheKey);
+  if (lstInfoPromise) {
+    return lstInfoPromise;
+  }
+  lstInfoPromise = (async () => {
+    try {
+      const lstInfo = (
+        await getSuiClient().getObject({
+          id: getConf().LST_INFO,
+          options: {
+            showContent: true,
+          },
+        })
+      ).data as LiquidStakingInfo;
+
+      // Cache the investor object
+      lsInfoCache.set(cacheKey, lstInfo);
+      return lstInfo;
+    } catch (e) {
+      console.error(`lstInfo failed`, e);
+      return undefined;
+    } finally {
+      // Remove the promise from the cache after it resolves
+      lsInfoPromiseCache.delete(cacheKey);
+    }
+  })();
+
+  // Cache the promise
+  lsInfoPromiseCache.set(cacheKey, lstInfoPromise);
+  return lstInfoPromise;
 }
 
 export async function getMeta(): Promise<Meta | undefined> {
@@ -56,7 +96,7 @@ export async function getMeta(): Promise<Meta | undefined> {
 
 export const stStuiCirculationSupply = async () => {
   try {
-    const lstInfo = await getLstInfo();
+    const lstInfo = await getLstInfo(false);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return "0";
@@ -81,7 +121,7 @@ export const stStuiCirculationSupply = async () => {
 
 export const fetchTotalSuiStaked = async () => {
   try {
-    const lstInfo = await getLstInfo();
+    const lstInfo = await getLstInfo(false);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return "0";
@@ -217,7 +257,7 @@ export const updateTotalStakers = async (): Promise<
 
 export const getFees = async (): Promise<FeeConfig | undefined> => {
   try {
-    const lstInfo = await getLstInfo();
+    const lstInfo = await getLstInfo(false);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return;
