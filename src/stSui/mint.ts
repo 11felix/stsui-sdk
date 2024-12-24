@@ -1,15 +1,18 @@
-import { Transaction } from "@mysten/sui/transactions";
+import {
+  Transaction,
+  TransactionObjectArgument,
+} from "@mysten/sui/transactions";
 import { getConf } from "../index.js";
 
 export async function mint(
   sui_amount: string,
   options: { address: string },
-): Promise<Transaction | undefined> {
+): Promise<Transaction> {
   const txb = new Transaction();
 
   const suiToStake = txb.splitCoins(txb.gas, [sui_amount]);
 
-  const [sui] = txb.moveCall({
+  const [coin] = txb.moveCall({
     target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::mint",
     arguments: [
       txb.object(getConf().LST_INFO),
@@ -18,6 +21,29 @@ export async function mint(
     ],
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
-  txb.transferObjects([sui], options.address);
+  txb.transferObjects([coin], options.address);
   return txb;
+}
+
+export async function mintTx(sui_amount: string): Promise<{
+  tx: Transaction;
+  coinOut: TransactionObjectArgument | undefined;
+}> {
+  const txb = new Transaction();
+
+  const suiToStake = txb.splitCoins(txb.gas, [sui_amount]);
+
+  const [coin] = txb.moveCall({
+    target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::mint",
+    arguments: [
+      txb.object(getConf().LST_INFO),
+      txb.object(getConf().SUI_SYSTEM_STATE_OBJECT_ID),
+      suiToStake,
+    ],
+    typeArguments: [getConf().STSUI_COIN_TYPE],
+  });
+  return {
+    tx: txb,
+    coinOut: coin,
+  };
 }
