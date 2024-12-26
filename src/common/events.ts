@@ -37,7 +37,11 @@ export class Events {
         if (Number(eve.timestampMs!) < startTime) {
           return events;
         }
-        const event = eve.parsedJson as EpochChangedEvent;
+        const event = {
+          ...(eve.parsedJson as EpochChangedEvent),
+          sender: eve.sender,
+          timestamp: eve.timestampMs,
+        } as EpochChangedEvent;
         events.push(event);
       }
       hasNext = eventData.hasNextPage;

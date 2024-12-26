@@ -69,6 +69,8 @@ export type EpochChangedEvent = {
     lst_supply: string;
     spread_fee: string;
   };
+  sender: string;
+  timestamp: string;
 };
 
 export type MintEvent = {
