@@ -69,6 +69,7 @@ export async function redeemTx(
 ): Promise<{
   tx: Transaction;
   coinOut: TransactionObjectArgument | undefined;
+  remainingLSTCoin: TransactionObjectArgument | undefined;
   amountOut: string;
 }> {
   if (!txb) txb = new Transaction();
@@ -118,7 +119,6 @@ export async function redeemTx(
     ],
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
-  txb.transferObjects([coin], options.address);
 
   const exchangeRate = new Decimal(await stSuiExchangeRate());
   const amount_decimal = new Decimal(stSuiAmount);
@@ -126,6 +126,7 @@ export async function redeemTx(
   return {
     tx: txb,
     coinOut: sui,
+    remainingLSTCoin: coin,
     amountOut: amountOut.toString(),
   };
 }
