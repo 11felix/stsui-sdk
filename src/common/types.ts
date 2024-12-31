@@ -86,6 +86,33 @@ export type MintEvent = {
   timestamp: string;
 };
 
+export type RedeemEvent = {
+  event: {
+    typename: {
+      name: string;
+    };
+    lst_amount_in: string;
+    sui_amount_out: string;
+    fee_amount: string;
+    fee_distributed: string;
+  };
+  sender: string;
+  timestamp: string;
+};
+
+export type FlashStakeEvent = {
+  event: {
+    typename: {
+      name: string;
+    };
+    sui_amount_in: string;
+    lst_amount_out: string;
+    fee_amount: string;
+  };
+  sender: string;
+  timestamp: string;
+};
+
 export type Meta = {
   objectId: string;
   version: string;
