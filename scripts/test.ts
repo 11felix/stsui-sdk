@@ -118,9 +118,9 @@ async function apr() {
 }
 // apr();
 async function apy() {
-  console.log(await fetchStSuiAPY(7));
+  console.log(await fetchStSuiAPY(1));
 }
-// apy();
+apy();
 
 async function totalStakers() {
   let txb = await updateTotalStakers();
@@ -140,7 +140,8 @@ async function getRedeemEvents() {
   console.log(
     await Events.getRedeemEvents({
       startTime: 1735660741000,
+      endTime: 1735660801000,
     }),
   );
 }
-getRedeemEvents();
+// getRedeemEvents();

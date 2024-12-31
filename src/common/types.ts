@@ -112,7 +112,16 @@ export type FlashStakeEvent = {
   sender: string;
   timestamp: string;
 };
-
+export type EventName =
+  | "MintEvent"
+  | "RedeemEvent"
+  | "FlashStakeEvent"
+  | "EpochChangedEvent";
+export type EventType =
+  | MintEvent
+  | RedeemEvent
+  | FlashStakeEvent
+  | EpochChangedEvent;
 export type Meta = {
   objectId: string;
   version: string;
