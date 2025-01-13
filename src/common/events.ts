@@ -62,21 +62,19 @@ export class Events {
       });
 
       for (const eve of eventData.data) {
-        if (Number(eve.timestampMs!) > endTime) {
-          continue;
-        }
-        if (Number(eve.timestampMs!) < startTime) {
-          return events;
-        }
-
         const event = {
           ...(eve.parsedJson as T),
           sender: eve.sender,
           timestamp: eve.timestampMs,
         } as T;
-
-        if (event.event.typename.name !== params.typeName) {
+        if ("0x" + event.event.typename.name !== params.typeName) {
           continue;
+        }
+        if (Number(eve.timestampMs!) > endTime) {
+          continue;
+        }
+        if (Number(eve.timestampMs!) < startTime) {
+          return events;
         }
         events.push(event);
       }
