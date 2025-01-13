@@ -1,25 +1,31 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { getConf } from "../index.js";
 
-export async function collect_fee(options: {
-  address: string;
-}): Promise<Transaction | undefined> {
+export async function collect_fee(
+  lstInfo: string,
+  lstCoinType: string,
+  collectionFeeCap: string,
+  address: string,
+): Promise<Transaction | undefined> {
   const txb = new Transaction();
 
   const [sui] = txb.moveCall({
     target:
       getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::collect_fees",
     arguments: [
-      txb.object(getConf().LST_INFO),
+      txb.object(lstInfo),
       txb.object(getConf().SUI_SYSTEM_STATE_OBJECT_ID),
-      txb.object(getConf().COLLECTION_FEE_CAP_ID),
+      txb.object(collectionFeeCap),
     ],
-    typeArguments: [getConf().STSUI_COIN_TYPE],
+    typeArguments: [lstCoinType],
   });
-  txb.transferObjects([sui], options.address);
+  txb.transferObjects([sui], address);
   return txb;
 }
-export async function updateFees(
+export async function updateFee(
+  lstInfo: string,
+  adminCap: string,
+  lstCoinType: string,
   mintFeeBps: number,
   redeemFeeBps: number,
   spreadFeeBps: number,
@@ -35,12 +41,8 @@ export async function updateFees(
   );
   txb.moveCall({
     target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::update_fees",
-    arguments: [
-      txb.object(getConf().LST_INFO),
-      txb.object(getConf().ADMIN_CAP),
-      fee_config,
-    ],
-    typeArguments: [getConf().STSUI_COIN_TYPE],
+    arguments: [txb.object(lstInfo), txb.object(adminCap), fee_config],
+    typeArguments: [lstCoinType],
   });
   return txb;
 }

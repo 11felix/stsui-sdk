@@ -8,7 +8,7 @@ export async function create_lst(
   redeemFeeBps: number,
   spreadFeeBps: number,
   redistributionFeeBps: number,
-  options: { address: string },
+  address: string,
 ) {
   const txb = new Transaction();
 
@@ -26,7 +26,7 @@ export async function create_lst(
     typeArguments: [lstCoinType],
   });
 
-  txb.transferObjects([admin_cap, collection_fee_cap], options.address);
+  txb.transferObjects([admin_cap, collection_fee_cap], address);
 
   txb.moveCall({
     target: "0x2::transfer::public_share_object",

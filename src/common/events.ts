@@ -74,6 +74,10 @@ export class Events {
           sender: eve.sender,
           timestamp: eve.timestampMs,
         } as T;
+
+        if (event.event.typename.name !== params.typeName) {
+          continue;
+        }
         events.push(event);
       }
       hasNext = eventData.hasNextPage;

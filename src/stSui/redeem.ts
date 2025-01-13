@@ -7,8 +7,10 @@ import { CoinStruct } from "@mysten/sui/client";
 import { Decimal } from "decimal.js";
 
 export async function redeem(
+  lstInfo: string,
+  lstCoinType: string,
   stSuiAmount: string,
-  options: { address: string },
+  address: string,
 ): Promise<Transaction> {
   const txb = new Transaction();
 
@@ -18,8 +20,8 @@ export async function redeem(
 
   do {
     const response = await getSuiClient().getCoins({
-      owner: options.address,
-      coinType: getConf().STSUI_COIN_TYPE,
+      owner: address,
+      coinType: lstCoinType,
       cursor: currentCursor,
     });
 
@@ -51,14 +53,14 @@ export async function redeem(
   const [sui] = txb.moveCall({
     target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::redeem",
     arguments: [
-      txb.object(getConf().LST_INFO),
+      txb.object(lstInfo),
       stSuiCoin,
       txb.object(getConf().SUI_SYSTEM_STATE_OBJECT_ID),
     ],
-    typeArguments: [getConf().STSUI_COIN_TYPE],
+    typeArguments: [lstCoinType],
   });
-  txb.transferObjects([sui, coin], options.address);
-  txb.setSender(options.address);
+  txb.transferObjects([sui, coin], address);
+  txb.setSender(address);
   return txb;
 }
 
@@ -120,7 +122,9 @@ export async function redeemTx(
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
 
-  const exchangeRate = new Decimal(await stSuiExchangeRate());
+  const exchangeRate = new Decimal(
+    await stSuiExchangeRate(getConf().LST_INFO, false),
+  );
   const amount_decimal = new Decimal(stSuiAmount);
   const amountOut = amount_decimal.mul(exchangeRate);
   return {
