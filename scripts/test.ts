@@ -114,13 +114,13 @@ async function epochEvents() {
 // epochEvents();
 
 async function apr() {
-  console.log(await fetchStSuiAPR(2));
+  console.log(await fetchStSuiAPR(1));
 }
-// apr();
+apr();
 async function apy() {
   console.log(await fetchStSuiAPY(1));
 }
-apy();
+// apy();
 
 async function totalStakers() {
   let txb = await updateTotalStakers();
