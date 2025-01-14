@@ -85,8 +85,8 @@ async function mint() {
 
   const txb = await lst.mint("100000000", address);
   if (txb) {
-    // dryRunTransactionBlock(txb);
-    executeTransactionBlock(txb);
+    dryRunTransactionBlock(txb);
+    // executeTransactionBlock(txb);
   }
 }
 // mint();
