@@ -13,8 +13,11 @@ import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { Transaction } from "@mysten/sui/transactions";
 import { SimpleCache } from "./simpleCache.js";
 
-export async function stSuiExchangeRate(): Promise<string> {
-  const lstInfo = await getLstInfo(false);
+export async function stSuiExchangeRate(
+  lstInfoId: string,
+  ignoreCache: boolean,
+): Promise<string> {
+  const lstInfo = await getLstInfo(lstInfoId, ignoreCache);
   if (!lstInfo) {
     console.error("couldnt fetch lst info object");
     return "0";
@@ -36,6 +39,7 @@ const lsInfoPromiseCache = new SimpleCache<
   Promise<LiquidStakingInfo | undefined>
 >();
 export async function getLstInfo(
+  lstInfoId: string,
   ignoreCache: boolean,
 ): Promise<LiquidStakingInfo | undefined> {
   const cacheKey = `lsInfo`;
@@ -58,7 +62,7 @@ export async function getLstInfo(
     try {
       const lstInfo = (
         await getSuiClient().getObject({
-          id: getConf().LST_INFO,
+          id: lstInfoId,
           options: {
             showContent: true,
           },
@@ -94,9 +98,12 @@ export async function getMeta(): Promise<Meta | undefined> {
   return meta;
 }
 
-export const stStuiCirculationSupply = async () => {
+export const stStuiCirculationSupply = async (
+  lstInfoId: string,
+  ignoreCache: boolean,
+) => {
   try {
-    const lstInfo = await getLstInfo(false);
+    const lstInfo = await getLstInfo(lstInfoId, ignoreCache);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return "0";
@@ -105,7 +112,7 @@ export const stStuiCirculationSupply = async () => {
       lstInfo.content.fields.lst_treasury_cap.fields.total_supply.fields.value.toString(),
     );
     const suiPrice = await getLatestPrices(["SUI/USD"], false);
-    const stSuiExchRate = await stSuiExchangeRate();
+    const stSuiExchRate = await stSuiExchangeRate(lstInfoId, ignoreCache);
     const StSuitotalSupply = (
       (parseFloat(totalStSuiSupply.toString()) *
         parseFloat(suiPrice[0]) *
@@ -119,9 +126,12 @@ export const stStuiCirculationSupply = async () => {
   }
 };
 
-export const fetchTotalSuiStaked = async () => {
+export const fetchTotalSuiStaked = async (
+  lstInfoId: string,
+  ignoreCache: boolean,
+) => {
   try {
-    const lstInfo = await getLstInfo(false);
+    const lstInfo = await getLstInfo(lstInfoId, ignoreCache);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return "0";
@@ -129,10 +139,10 @@ export const fetchTotalSuiStaked = async () => {
     const totalSuiStaked = new Decimal(
       lstInfo.content.fields.storage.fields.total_sui_supply.toString(),
     ).minus(new Decimal(lstInfo.content.fields.accrued_spread_fees));
-    return totalSuiStaked.div(10 ** 9);
+    return totalSuiStaked.div(10 ** 9).toString();
   } catch (error) {
     console.log("error", error);
-    return 0;
+    return "0";
   }
 };
 
@@ -156,6 +166,7 @@ export const fetchStSuiAPR = async (days: number): Promise<string> => {
     const epochChangeEvents = await Events.getEpochChangeEvents({
       startTime: startTime,
       endTime: endTime,
+      typeName: getConf().STSUI_COIN_TYPE,
     });
 
     if (epochChangeEvents.length < 2) {
@@ -229,7 +240,11 @@ export const updateTotalStakers = async (): Promise<
     }
     const e = Date.now();
     const s = Number(meta.content.fields.last_update_event_timestamp) + 1;
-    const mintEvents = await Events.getMintEvents({ startTime: s, endTime: e });
+    const mintEvents = await Events.getMintEvents({
+      startTime: s,
+      endTime: e,
+      typeName: getConf().STSUI_COIN_TYPE,
+    });
     if (mintEvents.length == 0) {
       console.log("no mint events");
       return;
@@ -255,9 +270,12 @@ export const updateTotalStakers = async (): Promise<
   }
 };
 
-export const getFees = async (): Promise<FeeConfig | undefined> => {
+export const getFees = async (
+  lstInfoId: string,
+  ignoreCache: boolean,
+): Promise<FeeConfig | undefined> => {
   try {
-    const lstInfo = await getLstInfo(false);
+    const lstInfo = await getLstInfo(lstInfoId, ignoreCache);
     if (!lstInfo) {
       console.error("couldnt fetch lst info object");
       return;

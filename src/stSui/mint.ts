@@ -6,8 +6,10 @@ import { getConf, stSuiExchangeRate } from "../index.js";
 import { Decimal } from "decimal.js";
 
 export async function mint(
+  lstInfo: string,
+  lstCoinType: string,
   sui_amount: string,
-  options: { address: string },
+  address: string,
 ): Promise<Transaction> {
   const txb = new Transaction();
 
@@ -16,14 +18,14 @@ export async function mint(
   const [coin] = txb.moveCall({
     target: getConf().STSUI_LATEST_PACKAGE_ID + "::liquid_staking::mint",
     arguments: [
-      txb.object(getConf().LST_INFO),
+      txb.object(lstInfo),
       txb.object(getConf().SUI_SYSTEM_STATE_OBJECT_ID),
       suiToStake,
     ],
-    typeArguments: [getConf().STSUI_COIN_TYPE],
+    typeArguments: [lstCoinType],
   });
-  txb.transferObjects([coin], options.address);
-  txb.setSender(options.address);
+  txb.transferObjects([coin], address);
+  txb.setSender(address);
   return txb;
 }
 
@@ -48,7 +50,9 @@ export async function mintTx(
     ],
     typeArguments: [getConf().STSUI_COIN_TYPE],
   });
-  const exchangeRate = new Decimal(await stSuiExchangeRate());
+  const exchangeRate = new Decimal(
+    await stSuiExchangeRate(getConf().LST_INFO, false),
+  );
   const sui_amount_decimal = new Decimal(sui_amount);
   const amountOut = sui_amount_decimal.div(exchangeRate);
 

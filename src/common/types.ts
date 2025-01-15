@@ -57,6 +57,7 @@ export type FeeConfig = {
 export type CommonEventParams = {
   startTime?: number;
   endTime?: number;
+  typeName: string;
 };
 
 export type EpochChangedEvent = {
@@ -143,4 +144,12 @@ export type Meta = {
       };
     };
   };
+};
+
+export type LstParams = {
+  lstInfo?: string;
+  lstCointype?: string;
+  adminCap?: string;
+  collectionFeeCap?: string;
+  treasuryCap?: string;
 };

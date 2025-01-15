@@ -67,7 +67,7 @@ export class Events {
           sender: eve.sender,
           timestamp: eve.timestampMs,
         } as T;
-        if ("0x" + event.event.typename.name !== getConf().STSUI_COIN_TYPE) {
+        if ("0x" + event.event.typename.name !== params.typeName) {
           continue;
         }
         if (Number(eve.timestampMs!) > endTime) {

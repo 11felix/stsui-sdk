@@ -1,7 +1,10 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { getConf } from "../index.js";
 
-export async function set_validators(
+export async function setValidators(
+  lstInfo: string,
+  adminCap: string,
+  lstCoinType: string,
   addresses: string[],
   weights: number[],
 ): Promise<Transaction | undefined> {
@@ -31,12 +34,8 @@ export async function set_validators(
     target:
       getConf().STSUI_LATEST_PACKAGE_ID +
       "::liquid_staking::set_validator_addresses_and_weights",
-    arguments: [
-      txb.object(getConf().LST_INFO),
-      vec_map,
-      txb.object(getConf().ADMIN_CAP),
-    ],
-    typeArguments: [getConf().STSUI_COIN_TYPE],
+    arguments: [txb.object(lstInfo), vec_map, txb.object(adminCap)],
+    typeArguments: [lstCoinType],
   });
 
   return txb;
