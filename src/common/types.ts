@@ -71,6 +71,9 @@ export type EpochChangedEvent = {
   };
   sender: string;
   timestamp: string;
+  type: string;
+  txDigest: string;
+  eventSeq: string;
 };
 
 export type MintEvent = {
@@ -84,6 +87,9 @@ export type MintEvent = {
   };
   sender: string;
   timestamp: string;
+  type: string;
+  txDigest: string;
+  eventSeq: string;
 };
 
 export type RedeemEvent = {
@@ -98,6 +104,9 @@ export type RedeemEvent = {
   };
   sender: string;
   timestamp: string;
+  type: string;
+  txDigest: string;
+  eventSeq: string;
 };
 
 export type FlashStakeEvent = {
@@ -111,6 +120,9 @@ export type FlashStakeEvent = {
   };
   sender: string;
   timestamp: string;
+  type: string;
+  txDigest: string;
+  eventSeq: string;
 };
 export type EventName =
   | "MintEvent"
