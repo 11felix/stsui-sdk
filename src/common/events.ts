@@ -66,6 +66,9 @@ export class Events {
           ...(eve.parsedJson as T),
           sender: eve.sender,
           timestamp: eve.timestampMs,
+          txDigest: eve.id.txDigest,
+          eventSeq: eve.id.eventSeq,
+          type: eve.type,
         } as T;
         if ("0x" + event.event.typename.name !== getConf().STSUI_COIN_TYPE) {
           continue;
@@ -76,16 +79,6 @@ export class Events {
         if (Number(eve.timestampMs!) < startTime) {
           return events;
         }
-        
-        const event = {
-          ...(eve.parsedJson as T),
-          sender: eve.sender,
-          timestamp: eve.timestampMs,
-          txDigest: eve.id.txDigest,
-          eventSeq: eve.id.eventSeq,
-          type: eve.type,
-        } as T;
-        
         events.push(event);
       }
       hasNext = eventData.hasNextPage;
