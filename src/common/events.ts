@@ -66,6 +66,9 @@ export class Events {
           ...(eve.parsedJson as T),
           sender: eve.sender,
           timestamp: eve.timestampMs,
+          txDigest: eve.id.txDigest,
+          eventSeq: eve.id.eventSeq,
+          type: eve.type,
         } as T;
         if ("0x" + event.event.typename.name !== params.typeName) {
           continue;
