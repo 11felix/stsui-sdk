@@ -54,40 +54,40 @@ npm i @stsui-sdk
 
 ## `Admin`
 
-Refer to https://alphafitech.github.io/stsui-sdk/classes/Admin.html for admin specific operations specific to your custom liquid staking token.
+Refer to [Admin](https://alphafitech.github.io/stsui-sdk/classes/Admin.html) class for admin specific operations specific to your custom liquid staking token.
 
 - Create your own lst
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst
+  - refer [createLst](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst)
 
 - Set validators for your lst
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#setvalidators
+  - refer [setValidators](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#setvalidators)
 
 - Collect the fee collected by your lst
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#collectfee
+  - refer [collectFee](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#collectfee)
 
 - Update the fee settings for your lst
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#updatefee
+  - refer [updateFee](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#updatefee)
 
 ## `LST`
 
-Refer to https://alphafitech.github.io/stsui-sdk/classes/LST.html for standard lst operations
+Refer to [LST](https://alphafitech.github.io/stsui-sdk/classes/LST.html) class for standard lst operations
 
 - Mint
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#mint
+  - refer [mint](https://alphafitech.github.io/stsui-sdk/classes/LST.html#mint)
 
 - Redeem
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem
+  - refer [redeem](https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem)
 
 - Refresh
 
-  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem
+  - refer [refresh](https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem)
 
 ## `Utils`
 
-Refer to https://alphafitech.github.io/stsui-sdk/classes/Utils.html for common utility functions
+Refer to [utils](https://alphafitech.github.io/stsui-sdk/classes/Utils.html) class for common utility functions
