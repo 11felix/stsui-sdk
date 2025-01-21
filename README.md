@@ -8,112 +8,42 @@ npm i @stsui-sdk
 
 ## API Reference
 
-## `mint`
+## `Admin`
 
-Call mint function to stake SUI and get stSUI.
+Refer to https://alphafitech.github.io/stsui-sdk/classes/Admin.html for admin specific operations specific to your custom liquid staking token.
 
-```typescript
-import { mint } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-const stakeSUI: Transaction = await mint(amount, { address: wallet_address });
-```
+- Create your own lst
 
-## `redeem`
+  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst
 
-Call this to unstake stSUI and get SUI in return.
+- Set validators for your lst
 
-```typescript
-import { redeem } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
+  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#setvalidators
 
-const unstakeStSUI: Transaction = await redeem(amount, {
-  address: wallet_address,
-});
-```
+- Collect the fee collected by your lst
 
-## `fetchStSuiAPR`
+  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#collectfee
 
-Call this to get apr for stSUI.
+- Update the fee settings for your lst
 
-```typescript
-import { fetchStSuiAPR } from "@stsui-sdk";
-const days: number = 365; //for a year
-const stSuiAPR: string = await fetchStSuiAPR(days);
-```
+  - refer https://alphafitech.github.io/stsui-sdk/classes/Admin.html#updatefee
 
-## `stSuiExchangeRate`
+## `LST`
 
-Call this to get exchange rate of stSUI.
+Refer to https://alphafitech.github.io/stsui-sdk/classes/LST.html for standard lst operations
 
-```typescript
-import { stSuiExchangeRate } from "@stsui-sdk";
+- Mint
 
-const exchangeRateOfStSui: string = await stSuiExchangeRate();
-```
+  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#mint
 
-## `stStuiCirculationSupply`
+- Redeem
 
-Call this to get tvl of stSUI.
+  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem
 
-```typescript
-import { stStuiCirculationSupply } from "@stsui-sdk";
+- Refresh
 
-const tvl: string = await stStuiCirculationSupply();
-```
+  - refer https://alphafitech.github.io/stsui-sdk/classes/LST.html#redeem
 
-## `create_lst`
+## `Utils`
 
-Call this to create a liquid staking token.
-
-```typescript
-import { create_lst } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-
-const staking_token: Transaction = await create_lst(treasuryCap: string, lstCoinType: string, mintFeeBps: number, redeemFeeBps: number, spreadFeeBps: number, redistributionFeeBps: number, options: { address: string });
-```
-
-## `set_validators`
-
-Call this to set validators for liquid staking token.
-
-```typescript
-import { set_validators } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-
-const validator_details: Transaction = await set_validators(addresses: string[], weights: number[]);
-```
-
-## `createFeeConfig`
-
-Call this to set fees for liquid staking token.
-
-```typescript
-import { createFeeConfig } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-
-const feesConfig: Transaction = await createFeeConfig(mintFeeBps: number, redeemFeeBps: number, spreadFeeBps: number, redistributionFeeBps: number, txb: Transaction);
-```
-
-## `updateFees`
-
-Call this to update fees for liquid staking token.
-
-```typescript
-import { updateFees } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-
-const feesConfig: Transaction = await updateFees(mintFeeBps: number, redeemFeeBps: number, spreadFeeBps: number, redistributionFeeBps: number);
-```
-
-## `collect_fee`
-
-Call this to update fees for liquid staking token.
-
-```typescript
-import { collect_fee } from "@stsui-sdk";
-import { Transaction } from "@mysten/sui/transactions";
-
-const feesConfig: Transaction = await collect_fee(options: {
-  address: string;
-});
-```
+Refer to https://alphafitech.github.io/stsui-sdk/classes/Utils.html for common utility functions

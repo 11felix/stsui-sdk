@@ -74,7 +74,8 @@ export class LST {
   }
 
   /**
-   *
+   * Multipurpose onchain function that ideally has to be called right before and after change of epoch.
+   * Used to stake all the pending sui to the updated set of validators and convert all the staked sui to fungible sui when eligible.
    * @returns transaction block
    */
   async refresh(): Promise<Transaction | undefined> {
