@@ -15,7 +15,7 @@ import {
     treasuryCap:
       "0xabcdc88f4ac2eeeb5ac13917c4d3ce147228b62295d51dff4950abd3bb4cabcd",
   });
-  * const txb = await admin.createLst(
+  const txb = await admin.createLst(
     0,
     1,
     600,
