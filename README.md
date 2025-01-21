@@ -11,7 +11,7 @@ npm i @stsui-sdk
 - Write a simple contract to create a coin that will also represent your liquid staking token, stSUI for example.
   - Upon publishing the contract, you will receive your coin's treasury cap and get your lst's sui move type ({packageid}::{module name}::{coin struct name}).
 - To turn your coin into a liquid staking token using our framework:
-  - You need to initialize [LstParams][https://alphafitech.github.io/stsui-sdk/types/LstParams.html] first.
+  - You need to initialize [LstParams](https://alphafitech.github.io/stsui-sdk/types/LstParams.html) first.
     ```typescript
     const lstParams: LstParams = {
       lstCointype:
@@ -24,8 +24,8 @@ npm i @stsui-sdk
     ```typescript
     const admin = new Admin(lstParams);
     ```
-  - Call the [createLst][https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst] method in the [Admin][https://alphafitech.github.io/stsui-sdk/classes/Admin.html] class.
-    refer to [this][https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst] for information on the arguments to createLst method.
+  - Call the [createLst](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst) method in the [Admin](https://alphafitech.github.io/stsui-sdk/classes/Admin.html) class.
+    refer to [this](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst) for information on the arguments to createLst method.
     ```typescript
     const txb = await admin.createLst(0, 1, 600, 10000, address);
     await suiClient
@@ -46,9 +46,9 @@ npm i @stsui-sdk
         console.error(error);
       });
     ```
-  - [LiquidStakingInfo][https://alphafitech.github.io/stsui-sdk/types/LiquidStakingInfo.html] shared object will be created and will be further used to call every other function corresponding to your lst.
+  - [LiquidStakingInfo](https://alphafitech.github.io/stsui-sdk/types/LiquidStakingInfo.html) shared object will be created and will be further used to call every other function corresponding to your lst.
   - Admin cap and collection fee cap will be transferred to the address provided in the createLst method.
-  - These caps will be used to call other admin functions like [setValidators][https://alphafitech.github.io/stsui-sdk/classes/Admin.html#setvalidators], [collectFee][https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst] and [updateFee][https://alphafitech.github.io/stsui-sdk/classes/Admin.html#updatefee].
+  - These caps will be used to call other admin functions like [setValidators](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#setvalidators), [collectFee](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#createlst) and [updateFee](https://alphafitech.github.io/stsui-sdk/classes/Admin.html#updatefee).
 
 ## API Reference
 
