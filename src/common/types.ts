@@ -157,11 +157,30 @@ export type Meta = {
     };
   };
 };
-
+/**
+ * your lst data.
+ * fields need to be populated based on the function call.
+ * note: admin cap and collection fee cap will be given upon creating the lst.
+ */
 export type LstParams = {
+  /**
+   * object id of your lstInfo object
+   */
   lstInfo?: string;
+  /**
+   * coin type of the lst
+   */
   lstCointype?: string;
+  /**
+   * object id of your admin cap
+   */
   adminCap?: string;
+  /**
+   * object id of your collection fee cap
+   */
   collectionFeeCap?: string;
+  /**
+   * object if of your lst's treasury cap
+   */
   treasuryCap?: string;
 };
