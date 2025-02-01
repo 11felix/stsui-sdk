@@ -110,13 +110,16 @@ async function redeemstsui() {
 async function collectFee() {
   const { address } = getExecStuff();
   const txb = await new Admin({
-    lstCointype: "0xd1b72982e40348d069bb1ff701e634c117bb5f741f44dff91e472d3b01461e55::stsui::STSUI",
-    lstInfo: "0x1adb343ab351458e151bc392fbf1558b3332467f23bda45ae67cd355a57fd5f5",
-    collectionFeeCap: "0x019466989adf3cf8320f8e7ab45a44c6f8ce9688125852b60c82475d2d2f9849"
+    lstCointype:
+      "0x34732358cebfdf4ee29534f906cbb36a78dfaaa256e7d9ddb7e789e2dd878eb::padu::PADU",
+    lstInfo:
+      "0xc1d996e18df1cc82a8c014c6d8290048ed30dafb34cd6b43ab9fde77f7e4bf33",
+    collectionFeeCap:
+      "0xfd3adebe46134c30691ef6bf687ac27ffcbb0ef66ca6d3eb81e04526ef5e147a",
   }).collectFee(address);
   if (txb) {
     // executeTransactionBlock(txb);
-    dryRunTransactionBlock(txb)
+    dryRunTransactionBlock(txb);
   }
 }
 collectFee();
