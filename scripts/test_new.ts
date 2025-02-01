@@ -107,14 +107,22 @@ async function redeemstsui() {
 }
 // redeemstsui();
 
-// async function collectFee() {
-//   const { address } = getExecStuff();
-//   const txb = await collect_fee({ address });
-//   if (txb) {
-//     executeTransactionBlock(txb);
-//   }
-// }
-// collectFee();
+async function collectFee() {
+  const { address } = getExecStuff();
+  const txb = await new Admin({
+    lstCointype:
+      "0x34732358cebfdf4ee29534f906cbb36a78dfaaa256e7d9ddb7e789e2dd878eb::padu::PADU",
+    lstInfo:
+      "0xc1d996e18df1cc82a8c014c6d8290048ed30dafb34cd6b43ab9fde77f7e4bf33",
+    collectionFeeCap:
+      "0xfd3adebe46134c30691ef6bf687ac27ffcbb0ef66ca6d3eb81e04526ef5e147a",
+  }).collectFee(address);
+  if (txb) {
+    // executeTransactionBlock(txb);
+    dryRunTransactionBlock(txb);
+  }
+}
+collectFee();
 
 // async function xrate() {
 //     const utils = new Utils({lstInfo: "0xc1d996e18df1cc82a8c014c6d8290048ed30dafb34cd6b43ab9fde77f7e4bf33", lstCointype: "0x34732358cebfdf4ee29534f906cbb36a78dfaaa256e7d9ddb7e789e2dd878eb::padu::PADU"});
@@ -126,14 +134,14 @@ async function redeemstsui() {
 async function refreshh() {
   const lst = new LST({
     lstInfo:
-      "0xc1d996e18df1cc82a8c014c6d8290048ed30dafb34cd6b43ab9fde77f7e4bf33",
+      "0x1adb343ab351458e151bc392fbf1558b3332467f23bda45ae67cd355a57fd5f5",
     lstCointype:
-      "0x34732358cebfdf4ee29534f906cbb36a78dfaaa256e7d9ddb7e789e2dd878eb::padu::PADU",
+      "0xd1b72982e40348d069bb1ff701e634c117bb5f741f44dff91e472d3b01461e55::stsui::STSUI",
   });
   const txb = await lst.refresh();
   if (txb) {
-    // executeTransactionBlock(txb);
-    dryRunTransactionBlock(txb);
+    executeTransactionBlock(txb);
+    // dryRunTransactionBlock(txb);
   }
 }
 // refreshh();
@@ -149,7 +157,7 @@ async function update_fee() {
   });
   const txb = await admin.updateFee(0, 1, 600, 5000);
   if (txb) {
-    dryRunTransactionBlock(txb);
+    // dryRunTransactionBlock(txb);
     // executeTransactionBlock(txb);
   }
 }
@@ -165,7 +173,7 @@ async function update_fee() {
 // epochEvents();
 
 async function apr() {
-  console.log(await fetchStSuiAPR(2));
+  console.log(await fetchStSuiAPR(1));
 }
 // apr();
 async function apy() {

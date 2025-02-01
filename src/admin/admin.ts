@@ -78,8 +78,8 @@ export class Admin {
       ) {
         return await collect_fee(
           this.lst.lstInfo,
-          this.lst.collectionFeeCap,
           this.lst.lstCointype,
+          this.lst.collectionFeeCap,
           address,
         );
       } else {
